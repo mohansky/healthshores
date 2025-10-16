@@ -1,0 +1,54 @@
+---
+import { tv, type VariantProps } from "tailwind-variants";
+
+const logoVariants = tv({
+  base: "inline-block",
+  variants: {
+    size: {
+      xs: "w-6 h-6",
+      sm: "w-8 h-8",
+      md: "w-12 h-12",
+      lg: "w-16 h-16",
+      xl: "w-24 h-24",
+      "2xl": "w-32 h-32",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
+
+type LogoProps = VariantProps<typeof logoVariants> & {
+  class?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+};
+
+interface Props extends LogoProps {}
+
+const {
+  size,
+  class: className,
+  primaryColor = "currentColor",
+  secondaryColor = "currentColor",
+} = Astro.props;
+
+const styles = logoVariants({ size, class: className });
+---
+
+<svg
+  width="100%"
+  height="100%"
+  viewBox="0 0 1560 1560"
+  version="1.1"
+  class={styles}
+  style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+  ><rect id="Home" x="0" y="0" width="1560" height="1560" style="fill:none;"
+  ></rect><g id="Home1"
+    ><path
+      d="M657.138,1384.18l-378.631,-0c-26.332,-0 -47.711,-21.379 -47.711,-47.711l0,-467.578l548.409,-461.938l548.409,461.938l0,467.578c0,26.332 -21.378,47.711 -47.71,47.711l-377.633,-0l0,-367.242l-245.133,0l-0,367.242Z"
+    ></path><path
+      d="M1427.36,914.769l-647.31,-543.158l-647.406,543.238c-10.909,9.154 -27.198,7.729 -36.352,-3.18l-63.468,-75.639c-9.154,-10.909 -7.729,-27.198 3.18,-36.352c-0,0 733.424,-629.985 744.067,-623.81c4.621,-2.642 145.911,114.97 304.128,248.746l-0,-178.371c-0,-19.353 15.713,-35.066 35.067,-35.066l173.283,-0c19.354,-0 35.067,15.713 35.067,35.066l0,380.704c0,1.473 -0.091,2.925 -0.268,4.35c112.1,95.683 196.652,168.301 196.652,168.301c10.909,9.154 12.334,25.443 3.18,36.352l-63.468,75.639c-9.154,10.909 -25.443,12.334 -36.352,3.18Z"
+    ></path></g
+  ></svg
+>

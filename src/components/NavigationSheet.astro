@@ -1,0 +1,135 @@
+---
+import { getEntry } from "astro:content";
+import Button from "./starwind/button/Button.astro";
+import Sheet from "./starwind/sheet/Sheet.astro";
+import SheetTrigger from "./starwind/sheet/SheetTrigger.astro";
+import SheetContent from "./starwind/sheet/SheetContent.astro";
+import SheetHeader from "./starwind/sheet/SheetHeader.astro";
+import SheetTitle from "./starwind/sheet/SheetTitle.astro";
+import SheetDescription from "./starwind/sheet/SheetDescription.astro"; 
+import IconHSLogo from "./icons/IconHSLogo.astro";
+
+const globalData = await getEntry("global", "site");
+if (!globalData) {
+  throw new Error("Global site data not found");
+}
+const { navigation, site } = globalData.data;
+
+type NavItem = {
+  label: string;
+  href: string;
+};
+---
+
+<nav
+  class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200"
+>
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-2" title="home">
+        <IconHSLogo class="w-20 h-20" /> 
+        <span class="sr-only">{site.name}</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        {
+          navigation.map((item: NavItem) => (
+            <a
+              href={item.href}
+              class="text-gray-700 hover:text-primary transition-colors font-medium"
+              title={`Go to ${item.label}`}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- CTA Button -->
+      <!-- <div class="hidden md:block">
+        <Button href="#contact" variant="primary">Get Started</Button>
+      </div> -->
+
+      <!-- Mobile Menu with Sheet -->
+      <div class="md:hidden">
+        <Sheet>
+          <SheetTrigger asChild>
+            <button
+              class="p-2 text-gray-700 hover:text-primary"
+              aria-label="Toggle menu"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </SheetTrigger>
+          <SheetContent side="right" class="w-screen">
+            <SheetHeader class="text-center">
+              <SheetTitle>{site.name}</SheetTitle>
+              <SheetDescription>
+                Navigate to any section of our website
+              </SheetDescription>
+            </SheetHeader>
+            <div class="flex flex-col items-center space-y-4 mt-8">
+              {
+                navigation.map((item: NavItem) => (
+                  <a
+                    href={item.href}
+                    class="sheet-nav-link text-lg text-foreground hover:text-primary transition-colors font-medium py-2"
+                    title={`Go to ${item.label}`}
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+              <!-- <div class="pt-4 w-full px-4">
+                <Button href="#contact" variant="primary" class="w-full sheet-nav-link">
+                  Get Started
+                </Button>
+              </div> -->
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Close sheet when navigation links are clicked
+  const setupSheetClose = () => {
+    const sheet = document.querySelector('.starwind-sheet');
+    if (!sheet) return;
+
+    const sheetLinks = sheet.querySelectorAll('.sheet-nav-link');
+    const sheetCloseButton = sheet.querySelector('.starwind-dialog-close');
+
+    sheetLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        // Small delay to allow navigation to start
+        setTimeout(() => {
+          if (sheetCloseButton) {
+            (sheetCloseButton as HTMLButtonElement).click();
+          }
+        }, 100);
+      });
+    });
+  };
+
+  // Run on initial load
+  setupSheetClose();
+
+  // Re-run after Astro page transitions
+  document.addEventListener('astro:page-load', setupSheetClose);
+</script>

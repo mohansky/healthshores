@@ -1,0 +1,58 @@
+---
+import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Button from './starwind/button/Button.astro';
+
+const sectionsData = await getEntry('sections', 'homepage');
+if (!sectionsData?.data.hero) {
+  throw new Error('Hero section data not found');
+}
+const { hero } = sectionsData.data;
+---
+
+<section id="home" class="relative min-h-screen flex items-center pt-20">
+  <!-- Background with overlay -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary/70 to-secondary/60 z-10"></div>
+    {hero.backgroundImage && (
+      <Image
+        src={hero.backgroundImage}
+        alt={hero.title}
+        title={hero.title}
+        class="w-full h-full object-cover"
+        widths={[640, 768, 1024, 1280, 1536]}
+        sizes="100vw"
+      />
+    )}
+  </div>
+
+  <!-- Content -->
+  <div class="container mx-auto px-4 relative z-20">
+    <div class="max-w-3xl">
+      <h1 class="font-sans-serif text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+        {hero.title}
+      </h1>
+      <p class="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
+        {hero.subtitle}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <Button href={hero.primaryCta.href} variant="primary" size="lg" title={hero.primaryCta.text}>
+          {hero.primaryCta.text}
+        </Button>
+        <Button href={hero.secondaryCta.href} variant="secondary" size="lg" title={hero.secondaryCta.text}>
+          {hero.secondaryCta.text}
+        </Button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+    <a href="#about" class="flex flex-col items-center text-white hover:text-primary-foreground transition-colors">
+ 
+      <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </a>
+  </div>
+</section>

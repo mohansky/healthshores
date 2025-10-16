@@ -1,0 +1,189 @@
+# yaml-language-server: $schema=../../../.astro/collections/sections.schema.json
+hero:
+  title: "World-Class Healthcare at Affordable Prices"
+  subtitle: "Your trusted partner in medical tourism. Access top-tier medical facilities worldwide with complete support throughout your healthcare journey."
+  primaryCta:
+    text: "Get Free Consultation"
+    href: "#contact"
+  secondaryCta:
+    text: "Explore Services"
+    href: "#services"
+  stats:
+    - value: "500+"
+      label: "Happy Patients"
+    - value: "50+"
+      label: "Partner Hospitals"
+    - value: "15+"
+      label: "Countries"
+  backgroundImage: "../../assets/hero.jpg"
+
+about:
+  badge: "About HealthShores"
+  title: "Your Journey to Better Health Starts Here"
+  description:
+    - "Healthshores (HS) is a premier medical tourism company based in Bengaluru, Karnataka, India. We specialize in helping patients and their families from around the world access world-class medical treatment through our extensive network of top-tier hospitals across India and beyond. Our mission is to make state-of-the-art healthcare affordable and accessible to people globally, eliminating the long waiting periods often experienced in other countries."
+    - "With years of experience in the healthcare industry, our team understands the complexities of international medical travel. We handle every detail from initial consultation to post-treatment follow-up ensuring a seamless, stress-free experience."
+  image: "../../assets/about-image.jpg"
+  features:
+  - title: Global Hospital Network
+    description: Access to premier hospitals across India and worldwide, offering cutting-edge medical treatments without lengthy waiting periods
+  - title: Affordable Healthcare Solutions
+    description: Commitment to providing state-of-the-art medical care at competitive prices that suit various budgets
+  - title: Comprehensive Patient Support
+    description: Personalized guidance throughout the entire medical journey, with expertise in coordinating between patients, families, and healthcare providers internationally
+
+services:
+  badge: "Our Services"
+  title: "What We Do"
+  introText: "Every year, thousands of patients travel internationally seeking specialized medical treatments. At Healthshores, we provide comprehensive medical travel assistance to help you navigate every step of your healthcare journey abroad with confidence and ease."
+  whyChooseUs: "Patients from around the world trust us because we offer more than just hospital referrals. We help you select the best hospital based on your specific medical needs, connect you with world-class clinical expertise, and ensure transparent, competitive treatment costs with no hidden fees. Our services include complete visa assistance and full local support from hotel arrangements and currency exchange to translators and airport transfers."
+  commitment: "We believe quality healthcare should be accessible to everyone. That's why we never charge patients for our services. All payments are made directly to the hospitals, ensuring complete transparency. Our goal is to help you receive the best possible medical treatment at affordable prices, allowing you to focus on what matters most your health and recovery."
+  items:
+    - title: "Medical Coordination"
+      description: "Expert guidance in selecting the right healthcare providers and treatment options for your needs."
+      icon: "clipboard"
+      features:
+        - "Doctor and hospital selection"
+        - "Second opinions"
+        - "Quotes from top facilities worldwide"
+    - title: "Pre-Travel Support"
+      description: "Comprehensive preparation to ensure you're fully ready before departure."
+      icon: "document"
+      features:
+        - "Appointment scheduling"
+        - "Comprehensive consultation"
+        - "Address all concerns before departure"
+    - title: "Travel Assistance"
+      description: "Complete support for all your travel and accommodation needs."
+      icon: "home"
+      features:
+        - "Visa processing support"
+        - "Flight guidance"
+        - "Hotel booking assistance"
+    - title: "On-Ground Care"
+      description: "Round-the-clock local support throughout your entire medical journey."
+      icon: "users"
+      features:
+        - "Airport pickup and drop-off"
+        - "24/7 local assistance"
+        - "Support throughout your stay"
+    - title: "Communication Services"
+      description: "Professional language support and regular updates to keep your family informed."
+      icon: "heart"
+      features:
+        - "Professional translator services"
+        - "Regular medical updates"
+        - "Family communication support"
+    - title: "Additional Services"
+      description: "Extra services to enhance your medical travel experience."
+      icon: "currency"
+      features:
+        - "Local tourism arrangements"
+        - "Available upon request"
+        - "Customized to your needs"
+
+process:
+  badge: "How It Works"
+  title: "Your Journey in 6 Simple Steps"
+  description: "We've streamlined the medical tourism process to make it easy, transparent, and stress-free."
+  steps:
+    - title: "Contact us"
+      icon: "IconContactUs"
+      description: "Share your medical needs with us through a free, confidential consultation. We'll review your medical history and understand your requirements."
+      tags:
+       - Visit our website and social media
+       - Send your request
+       - Get in touch with our doctors' assistants
+    - title: "Initial Consultation"
+      icon: "IconInitialConsultation"
+      description: "Receive personalized treatment recommendations from top specialists, along with transparent cost estimates from accredited facilities."
+      tags:
+       - Receive initial consultation
+       - Send your photos
+       - Receive cost estimate
+    - title: "Book your surgery"
+      icon: "IconBookSurgery"
+      description: "We handle all logistics including flights, visas, accommodation, and local transportation. Your personal coordinator ensures everything runs smoothly."
+      tags:
+       - Pay a deposit online
+       - Fix your appointment
+    - title: "Prepare to Travel"
+      icon: "IconPrepareTravel"
+      description: "Receive world-class medical care at your chosen facility. Your coordinator stays with you throughout, providing language support and medical advocacy."
+      tags:
+      - Receive pre-surgery & travel consultation
+      - Plan your trip
+      - Apply & receive a visa if necessary
+      - Book your flight & hotel
+    - title: "Treatment & Care"
+      icon: "IconTreatmentCare"
+      description: "Post-treatment support continues with recovery assistance, follow-up appointments, and telemedicine consultations to ensure optimal outcomes."
+      tags:
+      - Get picked up at the airport
+      - Receive 24h assistance
+      - Do the pre-surgery visit and tests
+      - Receive treatment at the hospital
+      - Have a post-op doctor visit
+      - Recover
+      - Go sightseeing (optional)
+    - title: "Follow-Up"
+      icon: "IconFollowUp"
+      description: "Post-treatment support continues with recovery assistance, follow-up appointments, and telemedicine consultations to ensure optimal outcomes."
+      tags:
+      - Fly back home
+      - Receive Follow-ups
+      - Keep in touch with your doctor 
+  cta:
+    text: "Schedule Free Consultation"
+    description: "Ready to start your medical journey?"
+
+testimonials:
+  badge: "Testimonials"
+  title: "What Our Patients Say"
+  description: "Don't just take our word for it. Hear from patients who've experienced the HealthShores difference."
+  items:
+    - name: "Sarah Johnson"
+      initials: "SJ"
+      treatment: "Dental Surgery"
+      location: "Thailand"
+      rating: 5
+      quote: "HealthShores made my dental surgery in Thailand seamless. From the initial consultation to recovery support, everything was handled professionally. I saved over $15,000 and got exceptional care!"
+    - name: "Michael Chen"
+      initials: "MC"
+      treatment: "Knee Replacement"
+      location: "India"
+      rating: 5
+      quote: "My knee replacement surgery in India was life-changing. The hospital was world-class, and my coordinator was available 24/7. I couldn't have asked for better care at such an affordable price."
+    - name: "Robert Patterson"
+      initials: "RP"
+      treatment: "Cardiac Surgery"
+      location: "Turkey"
+      rating: 5
+      quote: "Having my cardiac procedure in Turkey was the best decision. The cardiologist was internationally trained, the facility was state-of-the-art, and HealthShores took care of everything."
+    - name: "Emily Martinez"
+      initials: "EM"
+      treatment: "IVF Treatment"
+      location: "Spain"
+      rating: 5
+      quote: "I was nervous about traveling abroad for IVF treatment, but HealthShores made me feel safe and supported every step of the way. The results exceeded our expectations!"
+    - name: "David Thompson"
+      initials: "DT"
+      treatment: "Spinal Surgery"
+      location: "Costa Rica"
+      rating: 5
+      quote: "After years of chronic pain, I finally got the spinal surgery I needed in Costa Rica. The surgeon was incredible, and I saved $40,000. Thank you, HealthShores!"
+    - name: "Lisa Williams"
+      initials: "LW"
+      treatment: "Cosmetic Surgery"
+      location: "Mexico"
+      rating: 5
+      quote: "Professional, caring, and efficient. My cosmetic procedure in Mexico was flawless. The surgeon was highly skilled, and the recovery facility was luxurious. Highly recommend!"
+  stats:
+    - value: "4.9/5"
+      label: "Average Rating"
+    - value: "500+"
+      label: "Happy Patients"
+    - value: "98%"
+      label: "Success Rate"
+    - value: "100%"
+      label: "Satisfaction"

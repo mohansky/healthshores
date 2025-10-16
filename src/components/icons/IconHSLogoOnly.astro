@@ -1,0 +1,63 @@
+---
+import { tv, type VariantProps } from 'tailwind-variants';
+
+const logoVariants = tv({
+  base: 'inline-block',
+  variants: {
+    size: {
+      xs: 'w-6 h-6',
+      sm: 'w-8 h-8',
+      md: 'w-12 h-12',
+      lg: 'w-16 h-16',
+      xl: 'w-24 h-24',
+      '2xl': 'w-32 h-32',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+type LogoProps = VariantProps<typeof logoVariants> & {
+  class?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+};
+
+interface Props extends LogoProps {}
+
+const {
+  size,
+  class: className,
+  primaryColor = 'currentColor',
+  secondaryColor = 'currentColor',
+} = Astro.props;
+
+const styles = logoVariants({ size, class: className });
+---
+
+<svg
+  class={styles}
+  viewBox="0 0 2084 2084"
+  style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+  aria-label="HealthShores Logo"
+>
+  <rect
+    id="HS-Logo-only"
+    x="0"
+    y="0"
+    width="2083.33"
+    height="2083.33"
+    style="fill:none;"
+  />
+  <g id="HS-Logo-only1">
+    <path
+      d="M603.305,1445.91l-436.236,0.505c-53.437,-0 -96.821,-43.384 -96.821,-96.821l-0,-615.864c-0,-53.437 43.384,-96.821 96.821,-96.821l470.61,-0l0,-469.845c0,-53.437 43.384,-96.821 96.821,-96.821l615.864,-0c53.437,-0 96.821,43.384 96.821,96.821l0,445.351c-3.35,2.851 -2.301,1.928 -6.261,8.088c-30.291,47.123 -58.043,64.662 -90.873,80.53c-141.995,68.631 -328.243,45.226 -471.991,118.872c-127.578,65.361 -255.45,246.923 -223.195,336.518c137.594,-233.656 378.571,-330.91 546.911,-288.771c-242.313,7.1 -574.559,280.26 -594.517,570.727l-3.954,7.531Z"
+      fill={primaryColor}
+    />
+    <path
+      d="M1462.18,636.914l454.08,-0c53.437,-0 96.821,43.384 96.821,96.821l-0,615.864c-0,53.437 -43.384,96.821 -96.821,96.821l-469.08,-0l0,469.845c0,53.437 -43.384,96.821 -96.821,96.821l-615.864,-0c-53.437,-0 -96.821,-43.384 -96.821,-96.821l1.009,-419.448l12.899,-8.563c283.502,-193.963 764.834,-159.267 815.457,-684.319c3.711,-57.68 5.637,-103.333 -4.618,-162.537c-0.16,-2.15 -0.27,-2.891 -0.241,-4.484Z"
+      fill={secondaryColor}
+    />
+  </g>
+</svg>

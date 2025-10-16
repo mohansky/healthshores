@@ -1,0 +1,52 @@
+---
+import { tv, type VariantProps } from "tailwind-variants";
+
+const logoVariants = tv({
+  base: "inline-block",
+  variants: {
+    size: {
+      xs: "w-6 h-6",
+      sm: "w-8 h-8",
+      md: "w-12 h-12",
+      lg: "w-16 h-16",
+      xl: "w-24 h-24",
+      "2xl": "w-32 h-32",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
+
+type LogoProps = VariantProps<typeof logoVariants> & {
+  class?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+};
+
+interface Props extends LogoProps {}
+
+const {
+  size,
+  class: className,
+  primaryColor = "currentColor",
+  secondaryColor = "currentColor",
+} = Astro.props;
+
+const styles = logoVariants({ size, class: className });
+---
+
+<svg
+  width="100%"
+  height="100%"
+  viewBox="0 0 1560 1560"
+  version="1.1"
+  class={styles}
+  style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+  ><rect id="Plane" x="0" y="0" width="1560" height="1560" style="fill:none;"
+  ></rect><g id="Plane1"
+    ><path
+      d="M534.145,1194.41l41.54,207.907l-153.68,147.672l-113.162,-306.423l-299.806,-107.669l157.139,-152.748l195.154,46.805l324.76,-339.049l-642.138,-395.73l162.038,-172.313l773.771,263.502l337.106,-349.584c49.083,-42.866 131.025,-33.45 186.28,22.563c54.687,55.437 63.379,136.392 21.349,185.065l-345.012,334.284l268.528,788.529l-172.313,162.038l-404.323,-656.081l-337.231,321.232Z"
+    ></path></g
+  ></svg
+>

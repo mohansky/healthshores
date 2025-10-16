@@ -1,0 +1,37 @@
+{
+  "name": "healthshores",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.6.10",
+    "@astrojs/mdx": "^4.3.6",
+    "@astrojs/partytown": "^2.1.4",
+    "@astrojs/react": "^4.4.0",
+    "@astrojs/sitemap": "^3.6.0",
+    "@react-email/components": "^0.5.6",
+    "@tabler/icons": "^3.35.0",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "astro": "^5.14.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-email": "^4.3.0",
+    "resend": "^6.1.2",
+    "tailwind-merge": "^3.3.1",
+    "tailwind-variants": "^2.1.0",
+    "tailwindcss": "^4.1.14",
+    "tw-animate-css": "^1.4.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "wrangler": "^4.43.0"
+  }
+}

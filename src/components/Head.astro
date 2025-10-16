@@ -1,0 +1,183 @@
+---
+import { getEntry } from "astro:content";
+import GTMAstro from "./GTMAstro.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  keywords?: string[];
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const globalData = await getEntry("global", "site");
+if (!globalData) {
+  throw new Error("Global site data not found");
+}
+const siteData = globalData.data.site;
+
+const {
+  title = siteData.title,
+  description = siteData.description,
+  image = "/og-image.jpg",
+  type = "website",
+  publishedTime,
+  modifiedTime,
+  author = siteData.name,
+  keywords = [
+    "medical tourism",
+    "healthcare abroad",
+    "affordable healthcare",
+    "international medical treatment",
+    "medical travel",
+    "health tourism",
+  ],
+  canonical,
+  noindex = false,
+} = Astro.props;
+
+// Get current URL
+const siteUrl = Astro.site?.href || "http://localhost:4321";
+const currentUrl = new URL(Astro.url.pathname, siteUrl);
+const canonicalUrl = canonical || currentUrl.href;
+
+// Ensure image is absolute URL
+const imageUrl = image.startsWith("http")
+  ? image
+  : new URL(image, siteUrl).href;
+
+// Schema.org structured data
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalBusiness",
+      "@id": siteUrl + "#organization",
+      name: siteData.name,
+      url: siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: new URL("/logo.png", siteUrl).href,
+      },
+      image: imageUrl,
+      description: siteData.description,
+      telephone: siteData.phone,
+      email: siteData.email,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: siteData.address,
+        addressLocality: "Bengaluru",
+        addressRegion: "Karnataka",
+        postalCode: "560095",
+        addressCountry: "IN",
+      },
+      sameAs: [
+        globalData.data.social?.facebook,
+        globalData.data.social?.twitter,
+        globalData.data.social?.instagram,
+        globalData.data.social?.linkedin,
+      ].filter(Boolean),
+    },
+    {
+      "@type": "WebSite",
+      "@id": siteUrl + "#website",
+      url: siteUrl,
+      name: siteData.name,
+      description: siteData.description,
+      publisher: {
+        "@id": siteUrl + "#organization",
+      },
+    },
+    {
+      "@type": "WebPage",
+      "@id": canonicalUrl + "#webpage",
+      url: canonicalUrl,
+      name: title,
+      description: description,
+      isPartOf: {
+        "@id": siteUrl + "#website",
+      },
+      about: {
+        "@id": siteUrl + "#organization",
+      },
+      ...(publishedTime && { datePublished: publishedTime }),
+      ...(modifiedTime && { dateModified: modifiedTime }),
+      ...(type === "article" && {
+        "@type": "MedicalWebPage",
+        author: {
+          "@type": "Organization",
+          name: author,
+        },
+      }),
+    },
+  ],
+};
+---
+
+<!-- Basic Meta Tags -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="generator" content={Astro.generator} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- SEO Meta Tags -->
+<title>{title}</title>
+<meta name="description" content={description} />
+{keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
+<meta name="author" content={author} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content={siteData.name} />
+<meta property="og:locale" content="en_US" />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+{globalData.data.social?.twitter && (
+  <meta name="twitter:site" content={`@${new URL(globalData.data.social.twitter).pathname.split("/").pop()}`} />
+)}
+
+<!-- Additional Meta Tags -->
+<meta name="theme-color" content="#2563eb" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content={siteData.name} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+
+<!-- Preconnect to external domains for better performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- DNS Prefetch -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+<GTMAstro />

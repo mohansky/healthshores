@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "healthshores",
+  "main": "./dist/_worker.js/index.js",
+  "compatibility_date": "2025-10-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "a4f9a1d79bd049d4b5b81e3dea982163",
+      "preview_id": "f32a6a1042324a5ea4af821526b87206"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,108 @@
+---
+import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Badge from "../../components/starwind/badge/Badge.astro";
+import Card from "../../components/starwind/card/Card.astro";
+import CardHeader from "../../components/starwind/card/CardHeader.astro";
+import CardTitle from "../../components/starwind/card/CardTitle.astro";
+import CardDescription from "../../components/starwind/card/CardDescription.astro";
+import CardContent from "../../components/starwind/card/CardContent.astro"; 
+import Layout from "@/layouts/Layout.astro";
+
+const globalData = await getEntry("global", "site");
+if (!globalData) {
+  throw new Error("Global site data not found");
+}
+
+const allPosts = await getCollection("blog", ({ data }) => {
+  return data.draft !== true;
+});
+
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout>
+  <main class="pt-20">
+    <!-- Header -->
+    <section class="py-16 bg-muted">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <Badge variant="primary" class="mb-4">Blog</Badge>
+          <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Latest Articles & Insights
+          </h1>
+          <p class="text-lg text-muted-foreground">
+            Expert advice, medical tourism tips, and success stories from our
+            patients
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {
+            sortedPosts.map((post) => (
+              <a href={`/blog/${post.id}`} class="block group" title={post.data.title}>
+                <Card class="h-full hover:border-primary transition-all hover:shadow-xl">
+                  {post.data.image && (
+                    <div class="aspect-video overflow-hidden rounded-t-lg">
+                      <Image
+                        src={post.data.image}
+                        alt={post.data.title}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        widths={[400, 600, 800]}
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        title={post.data.title}
+                      />
+                    </div>
+                  )}
+                  <CardHeader>
+                    <div class="flex items-center gap-2 mb-2">
+                      {post.data.tags.slice(0, 2).map((tag) => (
+                        <Badge variant="secondary" class="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    <CardTitle class="group-hover:text-primary transition-colors">
+                      {post.data.title}
+                    </CardTitle>
+                    <CardDescription>{post.data.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div class="flex items-center justify-between text-sm text-muted-foreground">
+                      <span>{post.data.author}</span>
+                      <time datetime={post.data.pubDate.toISOString()}>
+                        {post.data.pubDate.toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </time>
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+            ))
+          }
+        </div>
+
+        {
+          sortedPosts.length === 0 && (
+            <div class="text-center py-12">
+              <p class="text-lg text-muted-foreground">
+                No blog posts available yet. Check back soon!
+              </p>
+            </div>
+          )
+        }
+      </div>
+    </section>
+  </main>
+</Layout>

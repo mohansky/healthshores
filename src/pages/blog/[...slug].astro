@@ -1,0 +1,148 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Badge from "../../components/starwind/badge/Badge.astro"; 
+import Layout from "@/layouts/Layout.astro";  
+import { components } from "@/components/CustomUI";
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection("blog", ({ data }) => {
+    return data.draft !== true;
+  });
+
+  return blogPosts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const globalData = await getEntry("global", "site");
+if (!globalData) {
+  throw new Error("Global site data not found");
+}
+---
+
+<Layout>
+  <main class="pt-20">
+    <!-- Hero -->
+    <section class="py-16 bg-muted">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <a
+            href="/blog"
+            class="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-6 transition-colors"
+            title="Back to Blog"
+            >
+            <svg
+              class="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back to Blog
+          </a>
+
+          <div class="flex flex-wrap gap-2 mb-4">
+            {
+              post.data.tags.map((tag) => (
+                <Badge variant="secondary" class="capitalize">{tag}</Badge>
+              ))
+            }
+          </div>
+
+          <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            {post.data.title}
+          </h1>
+
+          <div class="flex items-center gap-4 text-muted-foreground">
+            <span>{post.data.author}</span>
+            <span>•</span>
+            <time datetime={post.data.pubDate.toISOString()}>
+              {
+                post.data.pubDate.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              }
+            </time>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Image -->
+    {
+      post.data.image && (
+        <section class="py-8">
+          <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+              <div class="aspect-video overflow-hidden rounded-2xl shadow-2xl">
+                <Image
+                  src={post.data.image}
+                  alt={post.data.title}
+                  title={post.data.title}
+                  class="w-full h-full object-cover"
+                  widths={[800, 1200, 1600]}
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Content -->
+    <article class="py-12 pb-20">
+      <div class="container mx-auto px-4">
+   
+        <div
+          class="max-w-3xl mx-auto prose prose-lg prose-slate
+                     prose-headings:text-foreground prose-p:text-muted-foreground
+                     prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                     prose-strong:text-foreground prose-code:text-foreground
+                     prose-pre:bg-muted prose-pre:text-foreground
+                     prose-blockquote:border-primary prose-blockquote:text-muted-foreground
+                     prose-li:text-muted-foreground"
+        >
+          <Content  components={components}/>
+        </div>
+      </div>
+    </article>
+
+    <!-- Related Posts CTA -->
+    <section class="py-16 bg-muted">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl font-bold text-foreground mb-4">
+            Explore More Articles
+          </h2>
+          <p class="text-muted-foreground mb-8">
+            Discover more insights about medical tourism and healthcare
+          </p>
+          <a
+            href="/blog"
+            class="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
+          >
+            View All Posts
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
