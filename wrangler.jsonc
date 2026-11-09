@@ -10,7 +10,7 @@
   // Non-secret runtime config for the contact form (read via locals.runtime.env).
   // RESEND_API_KEY / TURNSTILE_SECRET_KEY are secrets: `wrangler secret put <NAME>`.
   "vars": {
-    "RESEND_FROM_EMAIL": "HealthShores Website <mail@mohankumar.dev>",
+    "RESEND_FROM_EMAIL": "Health Shores <mail@mohankumar.dev>",
     "RESEND_TO_EMAIL": "info@healthshores.com, mohansky@gmail.com"
   },
   // Keep the old *.workers.dev URL reachable for existing links;
