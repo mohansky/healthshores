@@ -1,0 +1,69 @@
+---
+import { getEntry } from "astro:content";
+import LegalLayout from "@/layouts/LegalLayout.astro";
+
+const globalData = await getEntry("global", "site");
+if (!globalData) throw new Error("Global site data not found");
+const { site } = globalData.data;
+---
+
+<LegalLayout
+  title="Medical Disclaimer"
+  description="HealthShores provides general information and travel facilitation, not medical advice. Read this before relying on our content."
+  updated="9 November 2026"
+>
+  <div class="callout">
+    <strong>In a medical emergency, call your local emergency number or go to the nearest hospital
+    immediately.</strong> Do not use our contact form or email for urgent medical needs.
+  </div>
+
+  <h2>Not medical advice</h2>
+  <p>
+    The information on www.healthshores.com, including articles, treatment descriptions, cost comparisons and any
+    information shared by our team, is for general information only. It is not medical advice, and it is not a
+    substitute for diagnosis or treatment by a qualified doctor who knows your medical history.
+  </p>
+  <p>
+    Always consult your own doctor before deciding on any treatment, before travelling for treatment, and before
+    starting or stopping any medication.
+  </p>
+
+  <h2>We are a facilitator, not a healthcare provider</h2>
+  <p>
+    HealthShores does not practise medicine and does not employ the doctors who treat our patients. Using our
+    services does not create a doctor–patient relationship with HealthShores. Medical opinions, treatment plans and
+    care are provided by independent hospitals and licensed doctors, who are responsible for them.
+  </p>
+
+  <h2>Results vary</h2>
+  <p>
+    Every patient is different. Outcomes, recovery times and risks depend on your individual condition and other
+    factors. Any examples, success rates or patient experiences mentioned on this Website do not guarantee a similar
+    result for you.
+  </p>
+
+  <h2>Costs are indicative</h2>
+  <p>
+    Prices and savings shown on this Website are general estimates for comparison only. Actual costs are set by
+    hospitals and depend on your diagnosis, treatment plan, length of stay and other factors.
+  </p>
+
+  <h2>Travel and visa information</h2>
+  <p>
+    Visa rules, travel requirements and regulations change. Information on this Website may not reflect the latest
+    requirements. Always check with official government sources and your treating hospital before you travel.
+  </p>
+
+  <h2>Accuracy and external links</h2>
+  <p>
+    We try to keep our content accurate and up to date, but we make no guarantee that it is complete or current.
+    Links to other websites are provided for convenience; we are not responsible for their content.
+  </p>
+
+  <h2>Questions</h2>
+  <p>
+    If you have questions about this disclaimer, contact us at
+    <a href={`mailto:${site.email}`}>{site.email}</a> or
+    <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>.
+  </p>
+</LegalLayout>

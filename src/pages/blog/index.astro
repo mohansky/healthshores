@@ -24,7 +24,10 @@ const sortedPosts = allPosts.sort(
 );
 ---
 
-<Layout>
+<Layout
+  title={`Blog: Medical Tourism Guides & Insights | ${globalData.data.site.name}`}
+  description="Guides on medical treatment in India: choosing a hospital, medical visas, cost comparisons and what to expect as an international patient."
+>
   <main class="pt-20">
     <!-- Header -->
     <section class="py-16 bg-muted">
@@ -48,7 +51,7 @@ const sortedPosts = allPosts.sort(
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {
             sortedPosts.map((post) => (
-              <a href={`/blog/${post.id}`} class="block group" title={post.data.title}>
+              <a href={`/blog/${post.id}/`} class="block group" title={post.data.title}>
                 <Card class="h-full hover:border-primary transition-all hover:shadow-xl">
                   {post.data.image && (
                     <div class="aspect-video overflow-hidden rounded-t-lg">

@@ -1,6 +1,5 @@
 ---
 import Footer from "@/components/Footer.astro";
-import Navigation from "@/components/Navigation.astro";
 import NavigationSheet from "@/components/NavigationSheet.astro";
 import Head from "@/components/Head.astro";
 import "@/styles/starwind.css";
@@ -28,7 +27,6 @@ const props = Astro.props;
   </head>
   <body>
     <NavigationSheet/>
-    <!-- <Navigation /> -->
     <slot />
     <Footer />
   </body>

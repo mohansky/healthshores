@@ -13,6 +13,7 @@ if (!globalData) {
   throw new Error('Global site data not found');
 }
 const { site, social } = globalData.data;
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <section id="contact" class="py-20 bg-muted">
@@ -27,7 +28,7 @@ const { site, social } = globalData.data;
           Start Your Medical Journey Today
         </h2>
         <p class="text-lg text-muted-foreground mb-8">
-          Have questions about medical tourism? Our team is here to help. Fill out the form or reach out directly we'll respond within 24 hours.
+          Have questions about medical tourism? Our team is here to help. Fill out the form or reach out directly, and we'll respond within 24 hours.
         </p>
 
         <!-- Contact Details -->
@@ -149,7 +150,7 @@ const { site, social } = globalData.data;
       <Card>
         <CardContent class="pt-6">
           <h3 class="text-2xl font-bold text-foreground mb-6">Send Us a Message</h3>
-          <form id="contact-form" class="space-y-6">
+          <form id="contact-form" class="space-y-6" novalidate>
             <!-- Name -->
             <div class="space-y-2">
               <Label for="name">Full Name *</Label>
@@ -158,8 +159,12 @@ const { site, social } = globalData.data;
                 id="name"
                 name="name"
                 required
+                autocomplete="name"
+                maxlength={100}
                 placeholder="Your Name"
+                aria-describedby="name-error"
               />
+              <p id="name-error" data-error-for="name" class="hidden text-sm text-red-600"></p>
             </div>
 
             <!-- Email -->
@@ -170,8 +175,12 @@ const { site, social } = globalData.data;
                 id="email"
                 name="email"
                 required
+                autocomplete="email"
+                maxlength={200}
                 placeholder="name@email.com"
+                aria-describedby="email-error"
               />
+              <p id="email-error" data-error-for="email" class="hidden text-sm text-red-600"></p>
             </div>
 
             <!-- Phone -->
@@ -181,8 +190,12 @@ const { site, social } = globalData.data;
                 type="tel"
                 id="phone"
                 name="phone"
+                autocomplete="tel"
+                maxlength={30}
                 placeholder="+91 987 654 3210"
+                aria-describedby="phone-error"
               />
+              <p id="phone-error" data-error-for="phone" class="hidden text-sm text-red-600"></p>
             </div>
 
             <!-- Message -->
@@ -193,9 +206,42 @@ const { site, social } = globalData.data;
                 name="message"
                 required
                 rows={4}
+                maxlength={5000}
                 placeholder="Tell us a bit about your medical needs..."
+                aria-describedby="message-error"
               />
+              <p id="message-error" data-error-for="message" class="hidden text-sm text-red-600"></p>
             </div>
+
+            <!-- Honeypot: hidden from people, bots tend to fill it -->
+            <div class="hidden" aria-hidden="true">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <!-- Consent -->
+            <div class="space-y-2">
+              <div class="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="consent"
+                  name="consent"
+                  required
+                  class="mt-1 h-4 w-4 rounded border-input text-primary focus:ring-primary"
+                  aria-describedby="consent-error"
+                />
+                <label for="consent" class="text-sm text-muted-foreground">
+                  I agree to HealthShores storing and using the information I submit, including any
+                  health details, to respond to my enquiry, as described in the
+                  <a href="/privacy/" class="text-primary underline hover:text-primary/80" target="_blank">Privacy Policy</a>. *
+                </label>
+              </div>
+              <p id="consent-error" data-error-for="consent" class="hidden text-sm text-red-600"></p>
+            </div>
+
+            {turnstileSiteKey && (
+              <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-action="turnstile-spin-v1"></div>
+            )}
 
             <!-- Submit Button -->
             <Button variant='primary' type="submit" class="w-full" size="lg">
@@ -203,7 +249,7 @@ const { site, social } = globalData.data;
             </Button>
 
             <!-- Success/Error Message -->
-            <div id="form-message" class="hidden p-4 rounded-lg"></div>
+            <div id="form-message" class="hidden p-4 rounded-lg" role="status" aria-live="polite"></div>
           </form>
         </CardContent>
       </Card>
@@ -211,87 +257,95 @@ const { site, social } = globalData.data;
   </div>
 </section>
 
+{turnstileSiteKey && (
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+)}
+
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const messageDiv = document.getElementById('form-message');
+  let hideTimer: ReturnType<typeof setTimeout> | undefined;
+
+  const clearFieldErrors = () => {
+    form?.querySelectorAll<HTMLElement>('[data-error-for]').forEach((el) => {
+      el.textContent = '';
+      el.classList.add('hidden');
+      form.querySelector(`[name="${el.dataset.errorFor}"]`)?.removeAttribute('aria-invalid');
+    });
+  };
+
+  const showFieldErrors = (errors: Record<string, string | undefined>) => {
+    let first: HTMLElement | null = null;
+    for (const [name, text] of Object.entries(errors)) {
+      const el = form?.querySelector<HTMLElement>(`[data-error-for="${name}"]`);
+      const field = form?.querySelector<HTMLElement>(`[name="${name}"]`) ?? null;
+      if (!el || !text) continue;
+      el.textContent = text;
+      el.classList.remove('hidden');
+      field?.setAttribute('aria-invalid', 'true');
+      first ??= field;
+    }
+    first?.focus();
+  };
+
+  const showMessage = (text: string, ok: boolean) => {
+    if (!messageDiv) return;
+    messageDiv.className = ok
+      ? 'p-4 rounded-lg bg-green-50 border border-green-200 text-green-700'
+      : 'p-4 rounded-lg bg-red-50 border border-red-200 text-red-700';
+    messageDiv.textContent = text;
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => messageDiv.classList.add('hidden'), 10000);
+  };
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    clearFieldErrors();
 
-    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
     const originalButtonText = submitButton?.textContent || 'Send Message';
 
     try {
-      // Show loading state
       if (submitButton) {
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
       }
 
-      // Get form data
       const formData = new FormData(form);
       const data = {
-        name: formData.get('name') as string,
-        email: formData.get('email') as string,
-        phone: formData.get('phone') as string,
-        message: formData.get('message') as string,
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone') || undefined,
+        message: formData.get('message'),
+        consent: formData.get('consent') === 'on',
+        company: formData.get('company'),
+        turnstileToken: formData.get('cf-turnstile-response'),
       };
 
-      // Send to API
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-
       const result = await response.json();
 
-      if (messageDiv) {
-        if (result.success) {
-          // Show success message
-          messageDiv.className = 'p-4 rounded-lg bg-green-50 border border-green-200 text-green-700';
-          messageDiv.textContent = result.message;
-          messageDiv.classList.remove('hidden');
-
-          // Reset form
-          form.reset();
-        } else {
-          // Show error message
-          messageDiv.className = 'p-4 rounded-lg bg-red-50 border border-red-200 text-red-700';
-
-          if (result.errors) {
-            // Display validation errors
-            const errorMessages = Object.entries(result.errors)
-              .map(([field, messages]) => `${field}: ${(messages as string[]).join(', ')}`)
-              .join('\n');
-            messageDiv.textContent = errorMessages;
-          } else {
-            messageDiv.textContent = result.message || 'Failed to send message. Please try again.';
-          }
-          messageDiv.classList.remove('hidden');
-        }
+      if (result.success) {
+        showMessage(result.message, true);
+        form.reset();
+      } else {
+        if (result.errors) showFieldErrors(result.errors);
+        showMessage(result.message || 'Failed to send message. Please try again.', false);
       }
     } catch (error) {
       console.error('Form submission error:', error);
-
-      if (messageDiv) {
-        messageDiv.className = 'p-4 rounded-lg bg-red-50 border border-red-200 text-red-700';
-        messageDiv.textContent = 'An unexpected error occurred. Please try again later.';
-        messageDiv.classList.remove('hidden');
-      }
+      showMessage('An unexpected error occurred. Please try again later.', false);
     } finally {
-      // Reset button
       if (submitButton) {
         submitButton.textContent = originalButtonText;
         submitButton.disabled = false;
       }
-
-      // Hide message after 7 seconds
-      setTimeout(() => {
-        messageDiv?.classList.add('hidden');
-      }, 7000);
+      // Turnstile tokens are single-use; get a fresh one for the next attempt
+      (window as any).turnstile?.reset();
     }
   });
 </script>

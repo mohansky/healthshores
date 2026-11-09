@@ -2,9 +2,9 @@
 site:
   name: HealthShores
   title: HealthShores - Premier Medical Tourism Consultancy
-  description: Your trusted partner for affordable, quality healthcare abroad. We connect patients with world-class medical facilities and coordinate every aspect of your medical journey.
+  description: Your trusted partner for world-class, affordable medical treatment in India. We connect international patients with India's top hospitals and coordinate every aspect of your medical journey.
   email: info@healthshores.com
-  phone: +1 (555) 123-4567
+  phone: "+91 98453 50837"
   address: "60 Feet Road, Koramangala, 6th Block, Bengaluru - 560095"
 
 navigation:
@@ -16,15 +16,17 @@ navigation:
     href: "/#services"
   - label: Process
     href: "/#process"
-  - label: Testimonials
-    href: "/#testimonials"
+  # Hidden until real testimonials are available
+  # - label: Testimonials
+  #   href: "/#testimonials"
   - label: Blog
-    href: "/blog"
+    href: "/blog/"
   - label: Contact
     href: "/#contact"
 
-social:
-  facebook: https://facebook.com/healthshores
-  twitter: https://twitter.com/healthshores
-  instagram: https://instagram.com/healthshores
-  linkedin: https://linkedin.com/company/healthshores
+# Social links hidden until the accounts are created. Uncomment and update when ready.
+# social:
+#   facebook: https://facebook.com/healthshores
+#   twitter: https://twitter.com/healthshores
+#   instagram: https://instagram.com/healthshores
+#   linkedin: https://linkedin.com/company/healthshores

@@ -1,6 +1,7 @@
 import tailwindcss from "@tailwindcss/vite";
 // @ts-check
 import { defineConfig } from "astro/config";
+import { existsSync } from "node:fs";
 
 import react from "@astrojs/react";
 
@@ -8,11 +9,16 @@ import mdx from "@astrojs/mdx";
 
 import sitemap from "@astrojs/sitemap";
 
-import partytown from "@astrojs/partytown";
 
 import cloudflare from "@astrojs/cloudflare";
 
-const SITE_URL = process.env.SITE_URL || "http://localhost:4321";
+// process.env does not include .env / .env.local values inside astro.config,
+// so load them explicitly. Defaults to the production domain so a build
+// without env files never ships localhost URLs in canonical/sitemap/robots.
+for (const file of [".env.local", ".env"]) {
+  if (!process.env.SITE_URL && existsSync(file)) process.loadEnvFile?.(file);
+}
+const SITE_URL = (process.env.SITE_URL || "https://www.healthshores.com").replace(/\/+$/, "");
 
 // https://astro.build/config
 export default defineConfig({
@@ -59,34 +65,6 @@ image: {
           item.changefreq = "monthly";
         }
         return item;
-      },
-    }),
-    partytown({
-      config: {
-        debug: false,
-        logCalls: false,
-        logGetters: false,
-        logSetters: false,
-        logImageRequests: false,
-        logScriptExecution: false,
-        logStackTraces: false,
-        forward: [["dataLayer.push"]],
-        resolveUrl: (url) => {
-          const siteUrl = `${SITE_URL}/`;
-          const proxyUrl = new URL(siteUrl);
-          if (
-            url.hostname === "googleads.g.doubleclick.net" ||
-            url.hostname === "www.googleadservices.com" ||
-            url.hostname === "googletagmanager.com" ||
-            url.hostname === "www.googletagmanager.com" ||
-            url.hostname === "region1.google-analytics.com" ||
-            url.hostname === "google.com"
-          ) {
-            proxyUrl.searchParams.append("apiurl", url.href);
-            return proxyUrl;
-          }
-          return url;
-        },
       },
     }),
   ],

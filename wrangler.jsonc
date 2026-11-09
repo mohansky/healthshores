@@ -4,6 +4,22 @@
   "main": "./dist/_worker.js/index.js",
   "compatibility_date": "2025-10-15",
   "compatibility_flags": ["nodejs_compat"],
+  // Custom domains. www is canonical; the apex should 301 to www via a
+  // Cloudflare Redirect Rule (see notes). Existing DNS records for these
+  // hostnames must be removed before the first deploy, or the deploy fails.
+  // Non-secret runtime config for the contact form (read via locals.runtime.env).
+  // RESEND_API_KEY / TURNSTILE_SECRET_KEY are secrets: `wrangler secret put <NAME>`.
+  "vars": {
+    "RESEND_FROM_EMAIL": "HealthShores Website <mail@mohankumar.dev>",
+    "RESEND_TO_EMAIL": "info@healthshores.com, mohansky@gmail.com"
+  },
+  // Keep the old *.workers.dev URL reachable for existing links;
+  // canonical tags point to www so it doesn't compete in search.
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "www.healthshores.com", "custom_domain": true },
+    { "pattern": "healthshores.com", "custom_domain": true }
+  ],
   "assets": {
     "binding": "ASSETS",
     "directory": "./dist"

@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../.astro/collections/sections.schema.json
 hero:
   title: "World-Class Healthcare at Affordable Prices"
-  subtitle: "Your trusted partner in medical tourism. Access top-tier medical facilities worldwide with complete support throughout your healthcare journey."
+  subtitle: "Your trusted partner in medical tourism. Access India's top hospitals and specialists, with complete support from your first enquiry to your recovery back home."
   primaryCta:
     text: "Get Free Consultation"
     href: "#contact"
@@ -21,12 +21,12 @@ about:
   badge: "About HealthShores"
   title: "Your Journey to Better Health Starts Here"
   description:
-    - "Healthshores (HS) is a premier medical tourism company based in Bengaluru, Karnataka, India. We specialize in helping patients and their families from around the world access world-class medical treatment through our extensive network of top-tier hospitals across India and beyond. Our mission is to make state-of-the-art healthcare affordable and accessible to people globally, eliminating the long waiting periods often experienced in other countries."
-    - "With years of experience in the healthcare industry, our team understands the complexities of international medical travel. We handle every detail from initial consultation to post-treatment follow-up ensuring a seamless, stress-free experience."
+    - "HealthShores (HS) is a premier medical tourism company based in Bengaluru, Karnataka, India. We specialize in helping patients and their families from around the world access world-class medical treatment through our extensive network of top-tier hospitals across India. Our mission is to make state-of-the-art healthcare affordable and accessible to people globally, eliminating the long waiting periods often experienced in other countries."
+    - "With years of experience in the healthcare industry, our team understands the complexities of international medical travel. We handle every detail from initial consultation to post-treatment follow-up, ensuring a seamless, stress-free experience."
   image: "../../assets/about-image.jpg"
   features:
-  - title: Global Hospital Network
-    description: Access to premier hospitals across India and worldwide, offering cutting-edge medical treatments without lengthy waiting periods
+  - title: Top Hospital Network in India
+    description: Access to premier, internationally accredited hospitals across India, offering cutting-edge medical treatments without lengthy waiting periods
   - title: Affordable Healthcare Solutions
     description: Commitment to providing state-of-the-art medical care at competitive prices that suit various budgets
   - title: Comprehensive Patient Support
@@ -35,9 +35,9 @@ about:
 services:
   badge: "Our Services"
   title: "What We Do"
-  introText: "Every year, thousands of patients travel internationally seeking specialized medical treatments. At Healthshores, we provide comprehensive medical travel assistance to help you navigate every step of your healthcare journey abroad with confidence and ease."
-  whyChooseUs: "Patients from around the world trust us because we offer more than just hospital referrals. We help you select the best hospital based on your specific medical needs, connect you with world-class clinical expertise, and ensure transparent, competitive treatment costs with no hidden fees. Our services include complete visa assistance and full local support from hotel arrangements and currency exchange to translators and airport transfers."
-  commitment: "We believe quality healthcare should be accessible to everyone. That's why we never charge patients for our services. All payments are made directly to the hospitals, ensuring complete transparency. Our goal is to help you receive the best possible medical treatment at affordable prices, allowing you to focus on what matters most your health and recovery."
+  introText: "Every year, thousands of patients travel internationally seeking specialized medical treatments. At HealthShores, we provide comprehensive medical travel assistance to help you navigate every step of your healthcare journey abroad with confidence and ease."
+  whyChooseUs: "Patients from around the world trust us because we offer more than just hospital referrals. We help you select the best hospital based on your specific medical needs, connect you with world-class clinical expertise, and ensure transparent, competitive treatment costs with no hidden fees. Our services include complete visa assistance and full local support, from hotel arrangements and currency exchange to translators and airport transfers."
+  commitment: "We believe quality healthcare should be accessible to everyone. That's why we never charge patients for our services. All payments are made directly to the hospitals, ensuring complete transparency. Our goal is to help you receive the best possible medical treatment at affordable prices, allowing you to focus on what matters most: your health and recovery."
   items:
     - title: "Medical Coordination"
       description: "Expert guidance in selecting the right healthcare providers and treatment options for your needs."
@@ -45,7 +45,7 @@ services:
       features:
         - "Doctor and hospital selection"
         - "Second opinions"
-        - "Quotes from top facilities worldwide"
+        - "Quotes from top hospitals across India"
     - title: "Pre-Travel Support"
       description: "Comprehensive preparation to ensure you're fully ready before departure."
       icon: "document"
@@ -103,13 +103,13 @@ process:
        - Receive cost estimate
     - title: "Book your surgery"
       icon: "IconBookSurgery"
-      description: "We handle all logistics including flights, visas, accommodation, and local transportation. Your personal coordinator ensures everything runs smoothly."
+      description: "Once you're happy with your treatment plan, confirm your booking with a deposit paid directly to the hospital, and we'll secure your surgery date with your chosen specialist."
       tags:
        - Pay a deposit online
        - Fix your appointment
     - title: "Prepare to Travel"
       icon: "IconPrepareTravel"
-      description: "Receive world-class medical care at your chosen facility. Your coordinator stays with you throughout, providing language support and medical advocacy."
+      description: "We handle all logistics including flights, visas, accommodation, and local transportation. Your personal coordinator ensures everything runs smoothly."
       tags:
       - Receive pre-surgery & travel consultation
       - Plan your trip
@@ -117,7 +117,7 @@ process:
       - Book your flight & hotel
     - title: "Treatment & Care"
       icon: "IconTreatmentCare"
-      description: "Post-treatment support continues with recovery assistance, follow-up appointments, and telemedicine consultations to ensure optimal outcomes."
+      description: "Receive world-class medical care at your chosen facility. Your coordinator stays with you throughout, providing language support and medical advocacy."
       tags:
       - Get picked up at the airport
       - Receive 24h assistance

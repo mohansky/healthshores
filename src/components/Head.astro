@@ -51,6 +51,8 @@ const imageUrl = image.startsWith("http")
   ? image
   : new URL(image, siteUrl).href;
 
+const sameAs = Object.values(globalData.data.social ?? {}).filter(Boolean);
+
 // Schema.org structured data
 const schemaOrg = {
   "@context": "https://schema.org",
@@ -62,7 +64,7 @@ const schemaOrg = {
       url: siteUrl,
       logo: {
         "@type": "ImageObject",
-        url: new URL("/logo.png", siteUrl).href,
+        url: new URL("/android-chrome-512x512.png", siteUrl).href,
       },
       image: imageUrl,
       description: siteData.description,
@@ -76,12 +78,7 @@ const schemaOrg = {
         postalCode: "560095",
         addressCountry: "IN",
       },
-      sameAs: [
-        globalData.data.social?.facebook,
-        globalData.data.social?.twitter,
-        globalData.data.social?.instagram,
-        globalData.data.social?.linkedin,
-      ].filter(Boolean),
+      ...(sameAs.length > 0 && { sameAs }),
     },
     {
       "@type": "WebSite",
@@ -157,7 +154,7 @@ const schemaOrg = {
 )}
 
 <!-- Additional Meta Tags -->
-<meta name="theme-color" content="#2563eb" />
+<meta name="theme-color" content="#429492" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content={siteData.name} />
@@ -172,12 +169,5 @@ const schemaOrg = {
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
 
-<!-- Preconnect to external domains for better performance -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-<!-- DNS Prefetch -->
-<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
 <GTMAstro />

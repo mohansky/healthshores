@@ -1,0 +1,120 @@
+---
+import { getEntry } from "astro:content";
+import LegalLayout from "@/layouts/LegalLayout.astro";
+
+const globalData = await getEntry("global", "site");
+if (!globalData) throw new Error("Global site data not found");
+const { site } = globalData.data;
+---
+
+<LegalLayout
+  title="Terms of Service"
+  description="The terms that apply when you use the HealthShores website and our medical tourism facilitation services."
+  updated="9 November 2026"
+>
+  <p>
+    These Terms of Service ("<strong>Terms</strong>") apply to your use of www.healthshores.com (the
+    "<strong>Website</strong>") and the medical tourism facilitation services provided by HealthShores, Bengaluru,
+    India ("<strong>HealthShores</strong>", "<strong>we</strong>", "<strong>us</strong>"). By using the Website or our
+    services, you agree to these Terms.
+  </p>
+
+  <h2>1. What we do</h2>
+  <p>
+    HealthShores is a <strong>facilitator</strong>. We help international patients find suitable hospitals and
+    doctors in India and coordinate travel, accommodation and local support.
+  </p>
+  <div class="callout">
+    We are not a hospital, clinic or healthcare provider, and we do not practise medicine. All diagnosis,
+    treatment and medical decisions are made by independent, licensed hospitals and doctors, who are solely
+    responsible for the medical care they provide.
+  </div>
+
+  <h2>2. Fees and payments</h2>
+  <ul>
+    <li>We do not charge patients for our facilitation services.</li>
+    <li>
+      All payments for treatment, including any deposit to book a procedure, are made directly to the hospital or
+      provider, under their own terms, cancellation and refund policies.
+    </li>
+    <li>
+      Travel, accommodation, visa and other third-party costs are paid to the relevant providers and are your
+      responsibility unless agreed otherwise in writing.
+    </li>
+  </ul>
+
+  <h2>3. Cost estimates</h2>
+  <p>
+    Cost estimates are prepared by hospitals based on the information available at the time. They are not
+    binding quotes. Final costs may change after in-person assessment, if your treatment plan changes, if your stay
+    is extended, or if complications arise.
+  </p>
+
+  <h2>4. Your responsibilities</h2>
+  <ul>
+    <li>Give complete and accurate information about your health, medical history and medications.</li>
+    <li>
+      Make sure your passport, visa and travel documents are valid. Visa decisions are made solely by the
+      Government of India.
+    </li>
+    <li>Follow the instructions of your treating doctors, including pre-travel and post-treatment advice.</li>
+    <li>Have appropriate travel and medical insurance where possible.</li>
+  </ul>
+
+  <h2>5. No guarantee of outcomes</h2>
+  <p>
+    All medical treatment carries risk. We do not guarantee the result of any treatment, the availability of any
+    doctor or hospital, or that any visa will be granted. Any figures on this Website about savings, success rates
+    or outcomes are general information and not a promise about your case.
+  </p>
+
+  <h2>6. Third-party providers</h2>
+  <p>
+    Hospitals, doctors, airlines, hotels, transport providers and other third parties are independent of
+    HealthShores. Their services are governed by their own terms, and they are responsible for their own acts and
+    omissions.
+  </p>
+
+  <h2>7. Website content</h2>
+  <p>
+    Content on the Website, including blog articles, is for general information only and is not medical advice.
+    Please read our <a href="/disclaimer/">Medical Disclaimer</a>. We try to keep content accurate but do not
+    guarantee that it is complete or up to date.
+  </p>
+  <p>
+    The HealthShores name, logo and Website content belong to HealthShores and may not be copied or reused without
+    our permission.
+  </p>
+
+  <h2>8. Limitation of liability</h2>
+  <p>
+    To the maximum extent permitted by law, HealthShores is not liable for any medical outcome, injury, loss or
+    expense arising from treatment or services provided by hospitals, doctors or other third parties, or from your
+    use of the Website. Nothing in these Terms limits liability that cannot be limited under applicable law.
+  </p>
+
+  <h2>9. Privacy</h2>
+  <p>
+    Our <a href="/privacy/">Privacy Policy</a> explains how we handle your personal and health information.
+  </p>
+
+  <h2>10. Changes</h2>
+  <p>
+    We may update these Terms from time to time. The "Last updated" date at the top shows when they last changed.
+    Continuing to use the Website or our services means you accept the updated Terms.
+  </p>
+
+  <h2>11. Governing law</h2>
+  <p>
+    These Terms are governed by the laws of India. The courts of Bengaluru, Karnataka have exclusive jurisdiction
+    over any dispute arising from them.
+  </p>
+
+  <h2>12. Contact</h2>
+  <div class="callout">
+    <strong>HealthShores</strong><br />
+    {site.address}<br />
+    Email: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+    Phone: <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>
+  </div>
+</LegalLayout>

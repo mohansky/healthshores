@@ -1,0 +1,175 @@
+---
+import { getEntry } from "astro:content";
+import LegalLayout from "@/layouts/LegalLayout.astro";
+
+const globalData = await getEntry("global", "site");
+if (!globalData) throw new Error("Global site data not found");
+const { site } = globalData.data;
+---
+
+<LegalLayout
+  title="Privacy Policy"
+  description="How HealthShores collects, uses, shares and protects your personal and health information."
+  updated="9 November 2026"
+>
+  <p>
+    HealthShores ("<strong>HealthShores</strong>", "<strong>we</strong>", "<strong>us</strong>") is a medical
+    tourism facilitator based in Bengaluru, India. This Privacy Policy explains how we collect, use, share and
+    protect your personal data when you visit www.healthshores.com (the "<strong>Website</strong>"), contact us,
+    or use our services. We process personal data in accordance with India's Digital Personal Data Protection
+    Act, 2023 and other applicable laws.
+  </p>
+
+  <h2>1. Information we collect</h2>
+  <h3>Information you give us</h3>
+  <ul>
+    <li><strong>Contact details:</strong> your name, email address and phone number.</li>
+    <li>
+      <strong>Enquiry details:</strong> the message you send us, which may include information about your
+      health, medical condition or treatment needs.
+    </li>
+    <li>
+      <strong>Information needed to arrange treatment</strong> (only if you choose to proceed): medical reports,
+      test results, scans and photographs; passport and identity details; travel dates; and details of any
+      companion travelling with you.
+    </li>
+  </ul>
+  <h3>Information collected automatically</h3>
+  <ul>
+    <li>
+      <strong>Technical data:</strong> IP address, browser and device type, and pages visited, collected by our
+      hosting and security provider to deliver the Website and protect it from abuse.
+    </li>
+    <li>
+      <strong>Analytics and advertising data:</strong> we use Cloudflare Web Analytics (which does not use
+      cookies) and Google tools loaded through Google Tag Manager, such as Google Analytics and Google Ads, which
+      may set cookies to measure visits and the performance of our ads. See section 6.
+    </li>
+  </ul>
+
+  <h2>2. How we use your information</h2>
+  <ul>
+    <li>To respond to your enquiry and provide a free consultation.</li>
+    <li>To obtain treatment opinions and cost estimates from partner hospitals and doctors.</li>
+    <li>
+      To coordinate your treatment and travel, including hospital appointments, visa invitation letters,
+      accommodation, airport transfers and translators.
+    </li>
+    <li>To stay in touch before, during and after your treatment, including follow-up care.</li>
+    <li>To operate, secure and improve the Website.</li>
+    <li>To comply with legal obligations.</li>
+  </ul>
+  <p>We do not sell your personal data, and we do not use your health information for advertising.</p>
+
+  <h2>3. Legal basis and consent</h2>
+  <p>
+    We process your personal data on the basis of your consent, which you give when you submit our contact form
+    or share documents with us, and where necessary to provide the services you request or to meet legal
+    requirements. Because health information is especially sensitive, we share it with hospitals or doctors only
+    for the purpose of your enquiry or treatment.
+  </p>
+  <p>
+    You can withdraw your consent at any time by emailing <a href={`mailto:${site.email}`}>{site.email}</a>.
+    Withdrawal does not affect processing that already took place, but we may no longer be able to assist with
+    your treatment.
+  </p>
+
+  <h2>4. Who we share your information with</h2>
+  <ul>
+    <li>
+      <strong>Partner hospitals, doctors and clinics</strong> in India, so they can review your case, give
+      opinions and cost estimates, and provide treatment.
+    </li>
+    <li>
+      <strong>Travel and local service providers</strong> (for example hotels, transport and translators), limited
+      to what they need to serve you.
+    </li>
+    <li>
+      <strong>Government authorities</strong> where needed for your medical visa, or where required by law.
+    </li>
+    <li>
+      <strong>Technology providers</strong> who process data on our behalf: Cloudflare (website hosting and
+      security and privacy-friendly analytics), Resend (delivery of contact form emails), our email provider, and
+      Google (analytics and advertising).
+    </li>
+  </ul>
+
+  <h2>5. International transfers</h2>
+  <p>
+    Our patients live around the world and some of our technology providers operate outside India, so your data
+    may be transferred to and stored in other countries. We only transfer data as permitted by applicable law and
+    take reasonable steps to ensure it remains protected.
+  </p>
+
+  <h2>6. Cookies, analytics and advertising</h2>
+  <p>
+    The Website uses a small number of cookies. Some are strictly necessary for security. Others are set by Google
+    tools loaded through Google Tag Manager:
+  </p>
+  <ul>
+    <li><strong>Google Analytics</strong> measures how visitors use the Website so we can improve it.</li>
+    <li>
+      <strong>Google Ads</strong> measures whether our ads lead to enquiries, and may be used to show our ads to
+      people who have visited the Website. We never share the content of your enquiry or any health information
+      with Google.
+    </li>
+  </ul>
+  <p>
+    We also use Cloudflare Web Analytics, which counts visits without cookies and without tracking you across
+    other websites.
+  </p>
+  <p>
+    You can block or delete cookies in your browser settings, and the Website will still work. You can manage how
+    Google uses your data for ads at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>,
+    and opt out of Google Analytics with the
+    <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out browser add-on</a>.
+  </p>
+
+  <h2>7. How long we keep your information</h2>
+  <p>
+    We keep enquiry information for as long as needed to respond and to follow up on your enquiry. If you become
+    a patient, we keep your records for as long as needed to coordinate your treatment and follow-up care, and as
+    required by law. When data is no longer needed, we delete it or make it anonymous.
+  </p>
+
+  <h2>8. How we protect your information</h2>
+  <p>
+    We use reasonable technical and organisational measures to protect your data, including encrypted (HTTPS)
+    connections and limiting access to people who need it. No method of transmission or storage is completely
+    secure, so please avoid sending documents you don't need to share.
+  </p>
+
+  <h2>9. Your rights</h2>
+  <p>Subject to applicable law, you have the right to:</p>
+  <ul>
+    <li>Get a summary of the personal data we hold about you and how we use it.</li>
+    <li>Ask us to correct, complete or update your data.</li>
+    <li>Ask us to erase your data when it is no longer needed.</li>
+    <li>Withdraw your consent.</li>
+    <li>Nominate another person to exercise your rights if you die or become incapacitated.</li>
+    <li>Raise a grievance with us and, if unresolved, with the Data Protection Board of India.</li>
+  </ul>
+  <p>To exercise any of these rights, contact us using the details below.</p>
+
+  <h2>10. Children</h2>
+  <p>
+    Enquiries for patients under 18 must be made by a parent or legal guardian, who gives consent on the child's
+    behalf.
+  </p>
+
+  <h2>11. Changes to this policy</h2>
+  <p>
+    We may update this Privacy Policy from time to time. The "Last updated" date at the top shows when it last
+    changed.
+  </p>
+
+  <h2>12. Contact and grievances</h2>
+  <p>For privacy questions, requests or complaints, contact our Grievance Officer:</p>
+  <div class="callout">
+    <strong>HealthShores, Grievance Officer</strong><br />
+    {site.address}<br />
+    Email: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+    Phone: <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>
+  </div>
+  <p>We aim to respond to all requests within 30 days.</p>
+</LegalLayout>

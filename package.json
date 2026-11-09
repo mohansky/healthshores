@@ -11,7 +11,6 @@
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.10",
     "@astrojs/mdx": "^4.3.6",
-    "@astrojs/partytown": "^2.1.4",
     "@astrojs/react": "^4.4.0",
     "@astrojs/sitemap": "^3.6.0",
     "@react-email/components": "^0.5.6",
@@ -25,6 +24,7 @@
     "react-dom": "^19.2.0",
     "react-email": "^4.3.0",
     "resend": "^6.1.2",
+    "sharp": "^0.35.5",
     "tailwind-merge": "^3.3.1",
     "tailwind-variants": "^2.1.0",
     "tailwindcss": "^4.1.14",
